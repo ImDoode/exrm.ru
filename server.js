@@ -6,6 +6,8 @@ const nodemailer = require('nodemailer');
 const PORT = Number(process.env.APP_PORT || 3000);
 const HOST = process.env.APP_IP || '127.0.0.1';
 const PUBLIC_DIR = __dirname;
+const SMARTCAPTCHA_SECRET = process.env.YANDEX_SMARTCAPTCHA_SECRET;
+const SMARTCAPTCHA_VERIFY_URL = 'https://smartcaptcha.yandexcloud.net/validate';
 
 const mimeTypes = {
   '.html': 'text/html; charset=utf-8',
@@ -72,6 +74,37 @@ function readRequestBody(req) {
   });
 }
 
+async function validateSmartCaptcha(token, ip) {
+  if (!SMARTCAPTCHA_SECRET) {
+    throw new Error('SMARTCAPTCHA_SECRET is not configured');
+  }
+
+  const payload = {
+    secret: SMARTCAPTCHA_SECRET,
+    token,
+  };
+
+  if (ip) {
+    payload.ip = ip;
+  }
+
+  const response = await fetch(SMARTCAPTCHA_VERIFY_URL, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json; charset=utf-8',
+    },
+    body: JSON.stringify(payload),
+  });
+
+  const result = await response.json().catch(() => ({}));
+
+  if (!response.ok || result.status !== 'ok') {
+    throw new Error('Капча не пройдена');
+  }
+
+  return true;
+}
+
 async function handleContactForm(req, res) {
   try {
     const data = await readRequestBody(req);
@@ -80,6 +113,7 @@ async function handleContactForm(req, res) {
     const phone = String(data.phone || '').trim();
     const email = String(data.email || '').trim();
     const description = String(data.description || '').trim();
+    const smartToken = String(data['smart-token'] || '').trim();
 
     if (!name || !phone || !email || !description) {
       sendJson(res, 400, {
@@ -88,6 +122,17 @@ async function handleContactForm(req, res) {
       });
       return;
     }
+
+    if (!smartToken) {
+      sendJson(res, 400, {
+        success: false,
+        message: 'Подтвердите капчу',
+      });
+      return;
+    }
+
+    const clientIp = req.socket?.remoteAddress || '';
+    await validateSmartCaptcha(smartToken, clientIp);
 
     // Простая проверка email
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

@@ -9,6 +9,41 @@
       content="Express-Строй — комплексное строительное обеспечение для промышленных, коммерческих и жилых объектов. Металлоконструкции, логистика, снабжение и сопровождение под ключ."
     />
     <link rel="stylesheet" href="static/css/style.css" />
+    <script>
+      window.SMARTCAPTCHA_THEME = {
+        "text-color-primary": "#000",
+        "base-background-color": "#FFF",
+        "popup-image-container-background-color": "#F2F2F2",
+        "base-error-color": "#F33",
+        "focus-color": "#FAC000",
+        "base-border": "1px solid #D9D9D9",
+        "base-border-radius": "11px",
+        "popup-border-radius": "24px",
+        "base-checkbox-background-color": "#FFF",
+        "base-checkbox-background-color-error": "#FFE7E7",
+        "base-checkbox-background-color-checked": "#5282FF",
+        "base-checkbox-check-mark-color": "#FFF",
+        "base-checkbox-border": "2px solid #CCC",
+        "base-checkbox-spin-color": "#5282FF",
+        "popup-textinput-background-color": "#FFF",
+        "popup-textinput-background-color-hover": "#FFF",
+        "popup-textinput-border": "2px solid rgba(0, 0, 0, 0.1)",
+        "popup-textinput-border-focus": "2px solid rgba(0, 0, 0, 0.3)",
+        "popup-textinput-text-color": "#000",
+        "popup-action-button-background-color": "#5282FF",
+        "popup-action-button-background-color-hover": "#5173CF",
+        "popup-action-button-text-color": "#FFF",
+        "popup-listen-button-background-color": "#FFF",
+        "popup-listen-button-background-color-hover": "#F5F5F5",
+        "popup-listen-button-checked-background-color": "#555",
+        "popup-listen-button-checked-text-color": "#FFF",
+        "popup-listen-button-text-color-hover": "#000",
+        "popup-listen-button-text-color": "#000",
+        "popup-tooltip-text-color": "#FFF",
+        "popup-tooltip-background-color": "#333"
+      };
+    </script>
+    <script src="https://smartcaptcha.yandexcloud.net/captcha.js" defer></script>
   </head>
   <body>
     <header class="topbar">
@@ -326,6 +361,19 @@
               <span>Что нужно</span>
               <textarea name="description" rows="3" placeholder="Металлоконструкции, поставки, логистика..." required></textarea>
             </label>
+
+            <div class="smart-captcha-wrap">
+              <div
+                class="smart-captcha"
+                data-sitekey="ysc1_RDMEiFbU2xFplpJvZH47RkYJIfZqc07z8Ax1qlGJ7f433961"
+                data-theme="light"
+                data-language="ru"
+                data-config='{"theme": {"text-color-primary": "#000", "base-background-color": "#FFF", "popup-image-container-background-color": "#F2F2F2", "base-error-color": "#F33", "focus-color": "#FAC000", "base-border": "1px solid #D9D9D9", "base-border-radius": "11px", "popup-border-radius": "24px", "base-checkbox-background-color": "#FFF", "base-checkbox-background-color-error": "#FFE7E7", "base-checkbox-background-color-checked": "#5282FF", "base-checkbox-check-mark-color": "#FFF", "base-checkbox-border": "2px solid #CCC", "base-checkbox-spin-color": "#5282FF", "popup-textinput-background-color": "#FFF", "popup-textinput-background-color-hover": "#FFF", "popup-textinput-border": "2px solid rgba(0, 0, 0, 0.1)", "popup-textinput-border-focus": "2px solid rgba(0, 0, 0, 0.3)", "popup-textinput-text-color": "#000", "popup-action-button-background-color": "#5282FF", "popup-action-button-background-color-hover": "#5173CF", "popup-action-button-text-color": "#FFF", "popup-listen-button-background-color": "#FFF", "popup-listen-button-background-color-hover": "#F5F5F5", "popup-listen-button-checked-background-color": "#555", "popup-listen-button-checked-text-color": "#FFF", "popup-listen-button-text-color-hover": "#000", "popup-listen-button-text-color": "#000", "popup-tooltip-text-color": "#FFF", "popup-tooltip-background-color": "#333"}}'
+              ></div>
+            </div>
+
+            <input type="hidden" name="smart-token" data-testid="smart-token" value="" />
+
             <button type="submit" class="btn btn--primary btn--full">Отправить заявку</button>
             <p class="cta-form__status" aria-live="polite"></p>
           </form>

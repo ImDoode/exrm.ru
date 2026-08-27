@@ -6,6 +6,22 @@ document.addEventListener('DOMContentLoaded', () => {
   const button = form.querySelector('button[type="submit"]');
   const status = form.querySelector('.cta-form__status');
   const originalText = button.textContent;
+  const smartTokenInputSelector = '[name="smart-token"]';
+  let isSubmitting = false;
+
+  const ensureSmartTokenInput = () => {
+    let tokenInput = form.querySelector(smartTokenInputSelector);
+
+    if (!tokenInput) {
+      tokenInput = document.createElement('input');
+      tokenInput.type = 'hidden';
+      tokenInput.name = 'smart-token';
+      tokenInput.setAttribute('data-testid', 'smart-token');
+      form.appendChild(tokenInput);
+    }
+
+    return tokenInput;
+  };
 
   const setStatus = (message, isError = false) => {
     if (!status) return;
@@ -15,17 +31,42 @@ document.addEventListener('DOMContentLoaded', () => {
     status.classList.toggle('is-success', !isError);
   };
 
+  const getSmartToken = () => {
+    const tokenElement = ensureSmartTokenInput();
+    return tokenElement ? String(tokenElement.value || '').trim() : '';
+  };
+
+  const clearCaptchaToken = () => {
+    const tokenElement = ensureSmartTokenInput();
+    if (tokenElement) {
+      tokenElement.value = '';
+    }
+  };
+
+  ensureSmartTokenInput();
+
   form.addEventListener('submit', async (event) => {
     event.preventDefault();
 
+    if (isSubmitting) {
+      return;
+    }
+
     const formData = Object.fromEntries(new FormData(form).entries());
+    const smartToken = getSmartToken();
 
     if (!formData.name || !formData.phone || !formData.email || !formData.description) {
       setStatus('Заполните все поля', true);
       return;
     }
 
-    button.disabled = true;
+    if (!smartToken) {
+      setStatus('Подтвердите капчу', true);
+      return;
+    }
+
+    isSubmitting = true;
+    button.setAttribute('aria-busy', 'true');
     button.textContent = 'Отправляем...';
     setStatus('');
 
@@ -45,11 +86,13 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       form.reset();
+      clearCaptchaToken();
       setStatus('Заявка отправлена');
     } catch (error) {
       setStatus(error.message || 'Не удалось отправить заявку', true);
     } finally {
-      button.disabled = false;
+      isSubmitting = false;
+      button.removeAttribute('aria-busy');
       button.textContent = originalText;
     }
   });

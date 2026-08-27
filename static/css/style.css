@@ -683,6 +683,29 @@ button, input, textarea {
   border-color: rgba(242, 79, 61, 0.5);
 }
 
+.smart-captcha-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100px;
+  padding: 10px 0 4px;
+  border-radius: 16px;
+  background: rgba(82, 130, 255, 0.04);
+  border: 1px solid rgba(82, 130, 255, 0.12);
+}
+
+.smart-captcha {
+  width: 100%;
+  min-height: 80px;
+  display: flex;
+  justify-content: center;
+}
+
+.smart-captcha iframe {
+  max-width: 100%;
+  border-radius: 14px;
+}
+
 .cta-form__status {
   min-height: 24px;
   margin-top: 2px;
