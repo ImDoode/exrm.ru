@@ -1,4 +1,5 @@
 :root {
+  --color-brand-primary: #c72222;
   --bg: #f3f5f7;
   --bg-soft: #edf1f4;
   --panel: #ffffff;
@@ -6,9 +7,9 @@
   --ink: #121a22;
   --ink-soft: #4b5863;
   --line: rgba(18, 26, 34, 0.12);
-  --accent: #f24f3d;
-  --accent-2: #d7392d;
-  --accent-soft: rgba(242, 79, 61, 0.08);
+  --accent: var(--color-brand-primary);
+  --accent-2: #9e1a1a;
+  --accent-soft: rgba(199, 34, 34, 0.08);
   --navy: #0f2239;
   --navy-soft: #1a3658;
   --gold: #f8c35e;
@@ -64,7 +65,7 @@ button, input, textarea {
 }
 
 .section--dark {
-  background: linear-gradient(135deg, #0f1f2d 0%, #132d46 100%);
+  background: linear-gradient(135deg, #180d0d 0%, #2a1010 42%, #3d0f0f 100%);
   color: #fff;
 }
 
@@ -120,9 +121,10 @@ button, input, textarea {
   width: 44px;
   height: 44px;
   border-radius: 12px;
-  background: linear-gradient(135deg, var(--accent) 0%, var(--navy) 100%);
+  background: linear-gradient(135deg, var(--color-brand-primary) 0%, #7c1212 100%);
   color: #fff;
   font-weight: 800;
+  box-shadow: 0 8px 18px rgba(199, 34, 34, 0.25);
 }
 
 .brand__text {
@@ -133,6 +135,11 @@ button, input, textarea {
 
 .brand__text strong {
   font-size: 1.15rem;
+  color: var(--navy);
+}
+
+.brand__text strong .brand__word--primary {
+  color: var(--color-brand-primary);
 }
 
 .brand__text small {
@@ -191,9 +198,9 @@ button, input, textarea {
 }
 
 .btn--primary {
-  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
+  background: linear-gradient(135deg, var(--color-brand-primary) 0%, var(--accent-2) 100%);
   color: #fff;
-  box-shadow: 0 12px 24px rgba(242, 79, 61, 0.25);
+  box-shadow: 0 12px 24px rgba(199, 34, 34, 0.22);
 }
 
 .btn--ghost {
@@ -353,68 +360,6 @@ button, input, textarea {
   background: linear-gradient(135deg, rgba(242, 79, 61, 0.06), rgba(255,255,255,1));
 }
 
-.service-card__icon {
-  position: relative;
-  width: 78px;
-  height: 78px;
-  margin-bottom: 18px;
-  border-radius: 18px;
-  background: linear-gradient(135deg, var(--navy) 0%, var(--navy-soft) 100%);
-}
-
-.service-card__icon::before,
-.service-card__icon::after {
-  content: "";
-  position: absolute;
-}
-
-.service-card__icon--metal::before {
-  inset: 18px 24px 18px 24px;
-  border: 3px solid rgba(255,255,255,0.96);
-  border-radius: 12px;
-  transform: rotate(45deg);
-}
-
-.service-card__icon--foundation::before {
-  left: 18px; right: 18px; bottom: 18px; height: 32px; border: 3px solid rgba(255,255,255,0.96); border-top: 0; border-radius: 0 0 12px 12px;
-}
-
-.service-card__icon--foundation::after {
-  left: 22px; right: 22px; top: 18px; height: 18px; border: 3px solid rgba(255,255,255,0.96); border-bottom: 0; border-radius: 12px 12px 0 0;
-}
-
-.service-card__icon--logistics::before {
-  left: 18px; right: 18px; top: 24px; bottom: 24px; border: 3px solid rgba(255,255,255,0.96); border-radius: 14px;
-}
-
-.service-card__icon--logistics::after {
-  left: 50%; top: 50%; width: 26px; height: 26px; transform: translate(-50%, -50%); border: 3px solid rgba(255,255,255,0.96); border-radius: 50%;
-}
-
-.service-card__icon--protection::before {
-  inset: 18px 20px 18px 20px; border: 3px solid rgba(255,255,255,0.96); border-radius: 12px;
-}
-
-.service-card__icon--protection::after {
-  left: 50%; top: 50%; width: 20px; height: 20px; transform: translate(-50%, -50%) rotate(45deg); border-right: 4px solid rgba(255,255,255,0.96); border-bottom: 4px solid rgba(255,255,255,0.96);
-}
-
-.service-card__icon--engineering::before {
-  left: 18px; right: 18px; top: 22px; bottom: 18px; border: 3px solid rgba(255,255,255,0.96); border-radius: 12px;
-}
-
-.service-card__icon--engineering::after {
-  left: 50%; top: 50%; width: 18px; height: 18px; transform: translate(-50%, -50%); background: rgba(255,255,255,0.96); clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
-}
-
-.service-card__icon--service::before {
-  left: 18px; top: 22px; width: 42px; height: 42px; border: 3px solid rgba(255,255,255,0.96); border-radius: 50%;
-}
-
-.service-card__icon--service::after {
-  right: 20px; bottom: 18px; width: 28px; height: 28px; border: 3px solid rgba(255,255,255,0.96); border-radius: 8px;
-}
-
 .service-card h3 {
   font-size: 1.55rem;
   margin-bottom: 12px;
@@ -492,42 +437,32 @@ button, input, textarea {
 }
 
 .advantage-card__icon {
-  position: relative;
+  display: grid;
+  place-items: center;
   width: 74px;
   height: 74px;
   margin-bottom: 18px;
   border-radius: 16px;
-  background: linear-gradient(135deg, var(--navy) 0%, #244e7a 100%);
+  background: linear-gradient(135deg, var(--color-brand-primary) 0%, #8b1414 100%);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08), 0 12px 20px rgba(199, 34, 34, 0.18);
 }
 
-.advantage-card__icon::before,
-.advantage-card__icon::after {
-  content: "";
-  position: absolute;
+.advantage-card__icon svg {
+  display: block;
+  width: 56px;
+  height: 56px;
 }
 
-.advantage-card__icon--supply::before {
-  left: 18px; right: 18px; top: 20px; bottom: 20px; border: 3px solid rgba(255,255,255,0.96); border-radius: 10px;
+.advantage-card__icon .shape {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.97);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
-.advantage-card__icon--supply::after {
-  left: 50%; top: 50%; width: 16px; height: 16px; transform: translate(-50%, -50%); border: 3px solid rgba(255,255,255,0.96); border-radius: 50%;
-}
-
-.advantage-card__icon--quality::before {
-  inset: 17px 17px 17px 17px; border: 3px solid rgba(255,255,255,0.96); border-radius: 50%;
-}
-
-.advantage-card__icon--quality::after {
-  left: 50%; top: 50%; width: 28px; height: 28px; transform: translate(-50%, -50%) rotate(45deg); border-right: 4px solid rgba(255,255,255,0.96); border-bottom: 4px solid rgba(255,255,255,0.96);
-}
-
-.advantage-card__icon--engineering::before {
-  left: 18px; right: 18px; top: 16px; height: 42px; border: 3px solid rgba(255,255,255,0.96); border-radius: 10px;
-}
-
-.advantage-card__icon--engineering::after {
-  left: 50%; top: 52px; width: 20px; height: 20px; transform: translateX(-50%); background: rgba(255,255,255,0.96); clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
+.advantage-card__icon .shape--filled {
+  fill: rgba(255, 255, 255, 0.16);
 }
 
 .advantage-card h3 {
@@ -545,6 +480,51 @@ button, input, textarea {
   grid-template-columns: 1fr 1fr;
   gap: 42px;
   align-items: center;
+  background: linear-gradient(135deg, rgba(199, 34, 34, 0.08), rgba(255,255,255,0.02));
+  border-radius: 30px;
+  padding: 20px;
+}
+
+.section-heading--left {
+  text-align: left;
+  margin-bottom: 32px;
+}
+
+.factory-showcase {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 26px;
+}
+
+.factory-showcase__item {
+  margin: 0;
+  overflow: hidden;
+  border-radius: 28px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  box-shadow: 0 18px 40px rgba(9, 16, 22, 0.06);
+}
+
+.factory-showcase__item img {
+  display: block;
+  width: 100%;
+  height: 420px;
+  object-fit: cover;
+}
+
+.factory-showcase__item figcaption {
+  display: grid;
+  gap: 8px;
+  padding: 18px 20px 22px;
+}
+
+.factory-showcase__item strong {
+  font-size: 1.32rem;
+}
+
+.factory-showcase__item span {
+  color: var(--ink-soft);
+  line-height: 1.6;
 }
 
 .capabilities__image img {
@@ -552,13 +532,15 @@ button, input, textarea {
   height: 520px;
   object-fit: cover;
   border-radius: 26px;
-  box-shadow: var(--shadow);
+  border: 1px solid rgba(255,255,255,0.12);
+  box-shadow: 0 22px 48px rgba(0, 0, 0, 0.25);
 }
 
 .capabilities__content h2 {
   font-size: clamp(2.2rem, 4vw, 3.5rem);
   line-height: 1.08;
   margin-bottom: 20px;
+  color: #fff;
 }
 
 .capabilities__content ul {
@@ -584,7 +566,8 @@ button, input, textarea {
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: var(--gold);
+  background: var(--color-brand-primary);
+  box-shadow: 0 0 0 5px rgba(199, 34, 34, 0.18);
 }
 
 .process-grid {
@@ -698,6 +681,21 @@ button, input, textarea {
 .cta-form textarea:focus {
   outline: 2px solid rgba(242, 79, 61, 0.2);
   border-color: rgba(242, 79, 61, 0.5);
+}
+
+.cta-form__status {
+  min-height: 24px;
+  margin-top: 2px;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.cta-form__status.is-success {
+  color: #0a8d4e;
+}
+
+.cta-form__status.is-error {
+  color: #b12a2a;
 }
 
 .footer {
