@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const nodemailer = require('nodemailer');
 
-const PORT = Number(process.env.APP_HTTPS_PORT || process.env.APP_PORT || 3000);
+const PORT = Number(process.env.APP_PORT || 3000);
 const HOST = process.env.APP_IP || '127.0.0.1';
 const PUBLIC_DIR = __dirname;
 const SMARTCAPTCHA_SECRET = process.env.YANDEX_SMARTCAPTCHA_SECRET;
