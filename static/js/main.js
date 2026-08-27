@@ -32,14 +32,25 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const getSmartToken = () => {
-    const tokenElement = ensureSmartTokenInput();
-    return tokenElement ? String(tokenElement.value || '').trim() : '';
+    const hiddenToken = ensureSmartTokenInput();
+    const widgetToken = form.querySelector('.smart-captcha [name="smart-token"]');
+
+    if (widgetToken && widgetToken.value) {
+      hiddenToken.value = widgetToken.value;
+    }
+
+    return hiddenToken ? String(hiddenToken.value || '').trim() : '';
   };
 
   const clearCaptchaToken = () => {
     const tokenElement = ensureSmartTokenInput();
     if (tokenElement) {
       tokenElement.value = '';
+    }
+
+    const widgetToken = form.querySelector('.smart-captcha [name="smart-token"]');
+    if (widgetToken) {
+      widgetToken.value = '';
     }
   };
 
@@ -76,7 +87,10 @@ document.addEventListener('DOMContentLoaded', () => {
         headers: {
           'Content-Type': 'application/json; charset=utf-8',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          ...formData,
+          'smart-token': smartToken,
+        }),
       });
 
       const result = await response.json().catch(() => ({}));

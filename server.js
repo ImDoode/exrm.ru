@@ -1,13 +1,15 @@
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
+const https = require('https');
+const querystring = require('querystring');
 const nodemailer = require('nodemailer');
 
 const PORT = Number(process.env.APP_PORT || 3000);
 const HOST = process.env.APP_IP || '127.0.0.1';
 const PUBLIC_DIR = __dirname;
-const SMARTCAPTCHA_SECRET = process.env.YANDEX_SMARTCAPTCHA_SECRET;
-const SMARTCAPTCHA_VERIFY_URL = 'https://smartcaptcha.yandexcloud.net/validate';
+const CONTACT_EMAIL = 'imdoode@gmail.com';
+const SMARTCAPTCHA_SERVER_KEY = process.env.SMARTCAPTCHA_SERVER_KEY || '';
 
 const mimeTypes = {
   '.html': 'text/html; charset=utf-8',
@@ -34,7 +36,62 @@ const mailTransporter = nodemailer.createTransport({
   },
 });
 
-const CONTACT_EMAIL = 'imdoode@gmail.com';
+function getClientIp(req) {
+  const forwarded = req.headers['x-forwarded-for'];
+
+  if (typeof forwarded === 'string' && forwarded.trim()) {
+    return forwarded.split(',')[0].trim();
+  }
+
+  const remoteIp = req.socket && req.socket.remoteAddress ? req.socket.remoteAddress : '';
+  return remoteIp.startsWith('::ffff:') ? remoteIp.slice(7) : remoteIp;
+}
+
+function checkCaptcha(token, ip, callback) {
+  if (!SMARTCAPTCHA_SERVER_KEY || !token) {
+    callback(false);
+    return;
+  }
+
+  const options = {
+    hostname: 'smartcaptcha.yandexcloud.net',
+    port: 443,
+    path: '/validate?' + querystring.stringify({
+      secret: SMARTCAPTCHA_SERVER_KEY,
+      token,
+      ip,
+    }),
+    method: 'GET',
+  };
+
+  const req = https.request(options, (res) => {
+    const chunks = [];
+
+    res.on('data', (chunk) => chunks.push(chunk));
+    res.on('end', () => {
+      try {
+        if (res.statusCode !== 200) {
+          console.error(`SmartCaptcha validation failed: status=${res.statusCode}; body=${Buffer.concat(chunks).toString()}`);
+          callback(false);
+          return;
+        }
+
+        const payload = JSON.parse(Buffer.concat(chunks).toString());
+        callback(payload.status === 'ok');
+      } catch (error) {
+        console.error('SmartCaptcha parse error:', error);
+        callback(false);
+      }
+    });
+  });
+
+  req.on('error', (error) => {
+    console.error('SmartCaptcha request error:', error);
+    callback(false);
+  });
+
+  req.end();
+}
 
 function sendJson(res, statusCode, data) {
   res.writeHead(statusCode, {
@@ -74,37 +131,6 @@ function readRequestBody(req) {
   });
 }
 
-async function validateSmartCaptcha(token, ip) {
-  if (!SMARTCAPTCHA_SECRET) {
-    throw new Error('SMARTCAPTCHA_SECRET is not configured');
-  }
-
-  const payload = {
-    secret: SMARTCAPTCHA_SECRET,
-    token,
-  };
-
-  if (ip) {
-    payload.ip = ip;
-  }
-
-  const response = await fetch(SMARTCAPTCHA_VERIFY_URL, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json; charset=utf-8',
-    },
-    body: JSON.stringify(payload),
-  });
-
-  const result = await response.json().catch(() => ({}));
-
-  if (!response.ok || result.status !== 'ok') {
-    throw new Error('Капча не пройдена');
-  }
-
-  return true;
-}
-
 async function handleContactForm(req, res) {
   try {
     const data = await readRequestBody(req);
@@ -113,7 +139,7 @@ async function handleContactForm(req, res) {
     const phone = String(data.phone || '').trim();
     const email = String(data.email || '').trim();
     const description = String(data.description || '').trim();
-    const smartToken = String(data['smart-token'] || '').trim();
+    const captchaToken = String(data['smart-token'] || data.captchaToken || data.token || '').trim();
 
     if (!name || !phone || !email || !description) {
       sendJson(res, 400, {
@@ -123,16 +149,25 @@ async function handleContactForm(req, res) {
       return;
     }
 
-    if (!smartToken) {
+    if (!captchaToken) {
       sendJson(res, 400, {
         success: false,
-        message: 'Подтвердите капчу',
+        message: 'Подтвердите, что вы не робот',
       });
       return;
     }
 
-    const clientIp = req.socket?.remoteAddress || '';
-    await validateSmartCaptcha(smartToken, clientIp);
+    const captchaPassed = await new Promise((resolve) => {
+      checkCaptcha(captchaToken, getClientIp(req), resolve);
+    });
+
+    if (!captchaPassed) {
+      sendJson(res, 400, {
+        success: false,
+        message: 'Капча не пройдена. Попробуйте ещё раз.',
+      });
+      return;
+    }
 
     // Простая проверка email
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -167,7 +202,7 @@ ${description}
         <p><strong>Телефон:</strong> ${escapeHtml(phone)}</p>
         <p><strong>Email:</strong> ${escapeHtml(email)}</p>
 
-        <h3>Описание запроса:</h3>
+        <h3>Описание объекта:</h3>
         <p>${escapeHtml(description).replace(/\n/g, '<br>')}</p>
       `,
     });
