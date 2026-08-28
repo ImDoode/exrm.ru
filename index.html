@@ -3,10 +3,32 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Express-Строй | Строительное обеспечение</title>
+    <meta name="robots" content="index,follow" />
+    <meta name="theme-color" content="#0b1f2a" />
+    <title>Express-Строй | Поставка материалов и оборудования в Екатеринбурге и по всей России</title>
     <meta
       name="description"
-      content="Express-Строй — комплексное строительное обеспечение для промышленных, коммерческих и жилых объектов. Металлоконструкции, логистика, снабжение и сопровождение под ключ."
+      content="Express-Строй — поставка металлоконструкций, насосного оборудования, кабельной продукции и строительных материалов в Екатеринбурге и по всей России. Комплексное снабжение объектов под ключ."
+    />
+    <meta
+      name="keywords"
+      content="Express-Строй, металлоконструкции Екатеринбург, насосное оборудование, электродвигатели, насосные агрегаты, комплектующие и запчасти, поставки по России"
+    />
+    <link rel="canonical" href="https://exrm.ru/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Express-Строй" />
+    <meta property="og:title" content="Express-Строй | Поставка материалов и оборудования в Екатеринбурге и по всей России" />
+    <meta
+      property="og:description"
+      content="Поставка металлоконструкций, насосного оборудования, электродвигателей, комплектующих и строительных материалов для объектов по всей России."
+    />
+    <meta property="og:url" content="https://exrm.ru/" />
+    <meta property="og:image" content="https://exrm.ru/static/images/production.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Express-Строй | Поставка материалов и оборудования" />
+    <meta
+      name="twitter:description"
+      content="Комплексное снабжение строительных объектов в Екатеринбурге и по всей России."
     />
     <link rel="stylesheet" href="static/css/style.css" />
     <script>
@@ -44,21 +66,94 @@
       };
     </script>
     <script src="https://smartcaptcha.yandexcloud.net/captcha.js" defer></script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": ["Organization", "LocalBusiness"],
+        "name": "Express-Строй",
+        "url": "https://exrm.ru/",
+        "logo": "https://exrm.ru/static/images/logo.png",
+        "telephone": "+7-922-100-40-49",
+        "email": "info@exrm.ru",
+        "description": "Поставка металлоконструкций, насосного оборудования, электродвигателей, комплектующих и строительных материалов в Екатеринбурге и по всей России.",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Екатеринбург",
+          "addressCountry": "RU"
+        },
+        "areaServed": ["Россия", "Екатеринбург", "Свердловская область"],
+        "priceRange": "по запросу",
+        "sameAs": []
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Куда доставляет Express-Строй?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Компания работает из Екатеринбурга и осуществляет поставки оборудования и материалов по всей России."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Какие товары поставляет компания?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Express-Строй поставляет металлоконструкции, насосное оборудование, электродвигатели, насосные агрегаты, комплектующие и строительные материалы для промышленных и инженерных объектов."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Можно ли заказать оборудование и материалы под проект?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Да. Компания подбирает решения под задачу объекта, сопровождает расчёт и организует поставку под проектный график."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Можно ли заказать материалы в Екатеринбурге и доставить в другой регион?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Да. Основная база находится в Екатеринбурге, но поставки осуществляются по всей России."
+            }
+          }
+        ]
+      }
+    </script>
   </head>
   <body>
     <header class="topbar">
       <div class="container topbar__inner">
-        <div class="brand" aria-label="Express-Строй">
-          <span class="brand__logo">ЭС</span>
-          <span class="brand__text">
-            <strong><span class="brand__word--primary">Express</span>-Строй</strong>
-            <small>Строительное обеспечение</small>
-          </span>
-        </div>
+        <a class="brand" href="index.html" aria-label="На главную">
+          <img class="brand__logo" src="static/images/logo.png" alt="" />
+        </a>
 
-        <nav class="nav" aria-label="Главное меню">
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-navigation" aria-label="Открыть меню">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        <nav class="nav" id="site-navigation" aria-label="Главное меню">
+          <div class="nav__item nav__item--dropdown">
+            <a class="nav__dropdown-toggle" href="catalog.html" aria-expanded="false">
+              Каталог
+            </a>
+            <div class="nav__submenu" aria-label="Каталог продукции">
+              <a href="catalog-nasosnoe-oborudovanie.html">Насосное оборудование</a>
+              <a href="catalog-elektrodvigateli.html">Электродвигатели</a>
+              <a href="catalog-nasosnye-agregaty.html">Насосные агрегаты</a>
+              <a href="catalog-komplektuyushchie-zapchasti.html">Комплектующие и запчасти</a>
+            </div>
+          </div>
           <a href="#services">Услуги</a>
-          <a href="#about">О компании</a>
+          <a href="#about">О&nbsp;компании</a>
           <a href="#advantages">Преимущества</a>
           <a href="#contacts">Контакты</a>
         </nav>
@@ -117,48 +212,89 @@
             <article class="service-card service-card--primary">
               <h3>Металлоконструкции</h3>
               <p>
-                Несущие каркасы, колонны, фермы, балки, лестницы, площадки,
-                ограждения и нестандартные решения под расчёт нагрузок.
+                Несущие каркасы, колонны, балки, фермы, связи, лестницы,
+                площадки, ограждения и нестандартные узлы под расчёт нагрузок.
               </p>
             </article>
 
             <article class="service-card">
               <h3>Сэндвич-панели</h3>
               <p>
-                Стеновые и кровельные панели с разным наполнителем, покрытием и
-                доборными элементами для фасадов и промышленных объектов.
+                Стеновые и кровельные панели с минватой, PIR и ППУ, доборными
+                элементами, уплотнителями и крепежом для фасадов и промышленных
+                объектов.
               </p>
             </article>
 
             <article class="service-card">
-              <h3>Светопрозрачные системы</h3>
+              <h3>Светопрозрачные конструкции</h3>
               <p>
-                Окна, витражи, входные группы, зенитные фонари и стеклянные
-                перегородки для коммерческих и производственных зданий.
+                Окна, витражи, входные группы, зенитные фонари, двери и стеклянные
+                ограждения для коммерческих и производственных зданий.
               </p>
             </article>
 
             <article class="service-card">
-              <h3>ЖБИ и металлопрокат</h3>
+              <h3>ЖБИ и фундаментные решения</h3>
               <p>
-                Фундаментные элементы, плиты, балки, арматура, трубы, уголки,
-                швеллеры и профили для долговечных конструктивных решений.
+                ФБС, плиты, перемычки, кольца, сваи, ростверки, панели и элементы
+                для фундаментов, перекрытий и инженерных конструкций.
               </p>
             </article>
 
             <article class="service-card">
-              <h3>Утеплители и отделка</h3>
+              <h3>Металлопрокат</h3>
               <p>
-                Минвата, PIR, пенополистирол, мембраны, гидроизоляция, штукатурка,
-                плитка и материалы для фасадов и внутренних работ.
+                Арматура, уголки, швеллеры, двутавры, трубы, листы и фасонный
+                прокат для производственных, строительных и монтажных задач.
               </p>
             </article>
 
             <article class="service-card">
-              <h3>Электрика и кровля</h3>
+              <h3>Утеплители</h3>
               <p>
-                Кабельная продукция, освещение, щитовое оборудование, трубы,
-                водостоки, профлист и кровельные системы для полного цикла.
+                Минеральная вата, PIR, пенополистирол, керамзит, мембраны,
+                пароизоляция и крепёж для теплоизоляции фасадов, кровли и полов.
+              </p>
+            </article>
+
+            <article class="service-card">
+              <h3>Кабельная продукция</h3>
+              <p>
+                Силовые и слаботочные кабели, лотки, короба, щитовое оборудование,
+                освещение, автоматы, УЗО и комплектующие для электроснабжения.
+              </p>
+            </article>
+
+            <article class="service-card">
+              <h3>Отделочные материалы</h3>
+              <p>
+                Сухие смеси, грунтовки, гидроизоляция, плитка, керамогранит,
+                фиброцемент, потолочные и напольные решения для финишной отделки.
+              </p>
+            </article>
+
+            <article class="service-card">
+              <h3>Трубы, кровля и водостоки</h3>
+              <p>
+                Металлические и полимерные трубы, профлист, металлочерепица,
+                мембраны, желоба, водостоки, воронки, снегозадержатели и доборы.
+              </p>
+            </article>
+
+            <article class="service-card">
+              <h3>Водотехническое оборудование</h3>
+              <p>
+                Запорная арматура, насосы, станции, фильтры, бойлеры, коллекторы,
+                фитинги и системы водоподготовки для инженерных сетей.
+              </p>
+            </article>
+
+            <article class="service-card">
+              <h3>Сыпучие материалы</h3>
+              <p>
+                Песок, щебень, отсев, ПГС, цемент, грунты, торфосмеси и вяжущие
+                материалы для строительства, подготовки оснований и работ на объекте.
               </p>
             </article>
           </div>
@@ -336,6 +472,68 @@
         </div>
       </section>
 
+      <section class="section section--muted">
+        <div class="container about-wrap">
+          <div class="about-copy">
+            <p class="eyebrow eyebrow--dark">Работаем по всей России</p>
+            <h2>Екатеринбургская база, масштабная логистика и поставки по всей стране.</h2>
+            <p>
+              Express-Строй базируется в Екатеринбурге, но обслуживает объекты по всей России.
+              Мы помогаем подрядчикам, девелоперам и производственным компаниям организовать
+              поставку материалов, оборудования и комплектующих без задержек и лишних переплат.
+            </p>
+            <p>
+              Благодаря продуманной логистике и опыту работы с промышленными объектами мы
+              закрываем задачи от локальных закупок до масштабных поставок на крупные проекты
+              в разных регионах страны.
+            </p>
+          </div>
+
+          <div class="about-stats">
+            <div class="stat-box">
+              <strong>Екатеринбург</strong>
+              <span>база компании и логистический центр</span>
+            </div>
+            <div class="stat-box">
+              <strong>Россия</strong>
+              <span>доставка и сопровождение по всей стране</span>
+            </div>
+            <div class="stat-box">
+              <strong>Под ключ</strong>
+              <span>от расчёта до поставки, монтажа и сопровождения</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="section-heading">
+            <p class="eyebrow eyebrow--dark">Частые вопросы</p>
+            <h2>Что важно знать перед заказом</h2>
+          </div>
+
+          <div class="faq-list">
+            <details open>
+              <summary>Где находится компания и куда доставляете?</summary>
+              <p>Компания базируется в Екатеринбурге, но работает с объектами по всей России. Мы организуем поставки в разные регионы и подбираем логистику под график проекта.</p>
+            </details>
+            <details>
+              <summary>Какие решения вы поставляете?</summary>
+              <p>Мы поставляем металлоконструкции, насосное оборудование, электродвигатели, насосные агрегаты, комплектующие, запчасти и строительные материалы для промышленных и инженерных систем.</p>
+            </details>
+            <details>
+              <summary>Можно ли заказать материалы под конкретный объект?</summary>
+              <p>Да. Мы помогаем сформировать решение под проект, рассчитать потребность и подобрать состав поставки с учётом задач, сроков и условий эксплуатации.</p>
+            </details>
+            <details>
+              <summary>Подходит ли Express-Строй для крупных проектов?</summary>
+              <p>Да. Мы работаем с промышленными, коммерческими и инженерными объектами, обеспечивая стабильные поставки и согласование по объёмам и срокам.</p>
+            </details>
+          </div>
+        </div>
+      </section>
+
       <section class="section section--muted" id="contacts">
         <div class="container cta-wrap">
           <div class="cta-copy">
@@ -387,12 +585,8 @@
     <footer class="footer">
       <div class="container footer__inner">
         <div>
-          <div class="brand brand--footer" aria-label="Express-Строй">
-            <span class="brand__logo">ЭС</span>
-            <span class="brand__text">
-              <strong><span class="brand__word--primary">Express</span>-Строй</strong>
-              <small>Строительное обеспечение</small>
-            </span>
+          <div class="brand brand--footer">
+            <img class="brand__logo" src="static/images/logo.png" alt="" />
           </div>
         </div>
 
