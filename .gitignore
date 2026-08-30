@@ -1,2 +1,4 @@
 Презентация ООО ЛТМ.pdf
 node_modules/
+.DS_Store
+static/.DS_Store
