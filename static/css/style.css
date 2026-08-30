@@ -1196,6 +1196,7 @@ button, input, textarea {
 
   .container {
     width: min(92vw, 600px);
+    grid-template-columns: repeat(1, minmax(0, 1fr));
   }
 
   .hero__content {
